@@ -110,13 +110,15 @@ endif
 SRC_DIR = src
 BOOT_DIR = boot/$(TARGET_ARCH)
 INCLUDE_DIR = include
+DRIVERS_DIR = drivers
 BUILD_DIR = build/$(TARGET_ARCH)
 
 # Files
 BOOT_ASM_OBJS = $(BUILD_DIR)/boot.o
 BOOT_OBJS = $(BUILD_DIR)/bootloader.o
 KERNEL_OBJS = $(BUILD_DIR)/kernel.o
-OBJS = $(BOOT_ASM_OBJS) $(BOOT_OBJS) $(KERNEL_OBJS)
+DRIVER_OBJS = $(BUILD_DIR)/vga.o
+OBJS = $(BOOT_ASM_OBJS) $(BOOT_OBJS) $(KERNEL_OBJS) $(DRIVER_OBJS)
 
 # Output
 OUTPUT = $(BUILD_DIR)/kernel.bin
@@ -145,6 +147,9 @@ $(BUILD_DIR)/bootloader.o: $(SRC_DIR)/boot/bootloader.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 $(KERNEL_OBJS): $(SRC_DIR)/kernel.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+
+$(BUILD_DIR)/vga.o: $(DRIVERS_DIR)/display/vga.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 $(OUTPUT): $(OBJS)

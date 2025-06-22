@@ -15,6 +15,7 @@ A simple, educational operating system kernel supporting both 32-bit (i386) and 
 - 🔧 **Modular Design**: Clean separation between architecture-specific and common code
 - 📦 **Smart Build System**: Automatic tool detection and dependency management
 - 🖥️ **QEMU Ready**: Automatic ISO generation and emulation
+- 🎨 **VGA Display Driver**: Text-mode VGA driver with color support
 
 ## Quick Start
 
@@ -124,11 +125,20 @@ kernel/
 ├── src/              # Source code
 │   ├── kernel.c      # Main kernel entry point
 │   └── boot/         # Boot-related C code
+├── drivers/          # Hardware drivers
+│   └── display/      # Display drivers
+│       └── vga.c     # VGA text-mode driver
 ├── include/          # Header files
 │   ├── types.h       # Architecture-adaptive type definitions
 │   ├── arch/         # Architecture-specific headers
-│   └── boot/         # Boot-related headers
+│   ├── boot/         # Boot-related headers
+│   └── drivers/      # Driver headers
+│       └── display/  # Display driver headers
+│           └── vga.h # VGA driver interface
 └── docs/             # Documentation
+    ├── ARCHITECTURE.md   # Architecture details
+    ├── DISTRIBUTIONS.md  # Platform-specific instructions
+    └── DRIVERS.md        # Hardware drivers documentation
 ```
 
 ## Architecture Differences
@@ -154,6 +164,17 @@ kernel/
 1. **Common Code**: Add to `src/` for architecture-independent features
 2. **Architecture-Specific Code**: Add to `src/arch/ARCH/` (create if needed)
 3. **Headers**: Use `include/` for common headers, `include/arch/ARCH/` for specific ones
+4. **Drivers**: Add hardware drivers to `drivers/` with corresponding headers in `include/drivers/`
+
+### Current Drivers
+
+- **VGA Display Driver** (`drivers/display/vga.c`):
+  - Text-mode VGA driver supporting 80x25 character display
+  - 16-color support with configurable foreground/background
+  - Character positioning and screen clearing
+  - Functions: `vga_init()`, `vga_write()`, `vga_putchar()`
+
+> 📋 For detailed driver documentation, see [docs/DRIVERS.md](docs/DRIVERS.md)
 
 ### Adding New Architecture
 

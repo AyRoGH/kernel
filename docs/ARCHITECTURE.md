@@ -18,6 +18,9 @@ kernel/
 │   ├── kernel.c       # Main kernel entry point
 │   └── boot/
 │       └── bootloader.c # Common bootloader functions
+├── drivers/           # Hardware drivers
+│   └── display/       # Display drivers
+│       └── vga.c      # VGA text-mode driver with color support
 ├── include/
 │   ├── types.h        # Generic types with automatic architecture selection
 │   ├── arch/
@@ -25,9 +28,12 @@ kernel/
 │   │   │   └── arch_types.h    # i386-specific types and constants
 │   │   └── x86_64/
 │   │       └── arch_types.h    # x86_64-specific types and constants
-│   └── boot/
-│       ├── bootloader.h        # Bootloader headers
-│       └── multiboot2.h        # Multiboot2 definitions
+│   ├── boot/
+│   │   ├── bootloader.h        # Bootloader headers
+│   │   └── multiboot2.h        # Multiboot2 definitions
+│   └── drivers/       # Driver headers
+│       └── display/   # Display driver headers
+│           └── vga.h  # VGA driver interface and color definitions
 └── docs/
     └── ARCHITECTURE.md         # This documentation
 ```
@@ -98,3 +104,29 @@ To add a new architecture:
 2. Create `include/arch/ARCH/arch_types.h`
 3. Add flags in the Makefile
 4. Update `include/types.h` if necessary
+
+## Hardware Drivers
+
+### VGA Display Driver
+
+The kernel includes a VGA text-mode driver located in `drivers/display/vga.c`:
+
+**Features:**
+- 80x25 character text mode
+- 16-color palette support
+- Cursor positioning
+- Screen clearing and initialization
+- String output with automatic cursor advancement
+
+**API:**
+- `int vga_init(void)`: Initialize VGA driver and clear screen
+- `int vga_write(const char *str, size_t str_length)`: Write string to screen
+- Color definitions available in `include/drivers/display/vga.h`
+
+**Memory Layout:**
+- VGA buffer located at physical address 0xB8000
+- Each character entry consists of 2 bytes: character + color attribute
+- Color attribute format: `[background:4][foreground:4]`
+
+**Build Integration:**
+The VGA driver is automatically compiled and linked with the kernel for both i386 and x86_64 architectures through the Makefile.
