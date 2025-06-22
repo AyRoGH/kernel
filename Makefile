@@ -194,11 +194,11 @@ run-x86_64:
 install-deps-debian:
 	@echo "Installing dependencies for Ubuntu/Debian..."
 	sudo apt update
-	sudo apt install gcc gcc-multilib nasm binutils grub-common grub-pc-bin qemu-system-x86 xorriso
+	sudo apt install gcc nasm binutils grub-common grub-pc-bin qemu-system-x86 xorriso
 
 install-deps-fedora:
 	@echo "Installing dependencies for Fedora/RHEL..."
-	sudo dnf install gcc gcc-multilib nasm binutils grub2-tools grub2-pc-modules qemu-system-x86 xorriso
+	sudo dnf install gcc nasm binutils grub2-tools grub2-pc-modules qemu-system-x86 xorriso
 
 install-deps-arch:
 	@echo "Installing dependencies for Arch Linux..."
@@ -243,7 +243,7 @@ install-deps:
 		$(MAKE) install-deps-opensuse; \
 	else \
 		echo "System not automatically detected. Please install manually:"; \
-		echo "  gcc, gcc-multilib (for i386), nasm, binutils"; \
+		echo "  gcc, nasm, binutils"; \
 		echo "  grub tools, qemu-system-x86, xorriso"; \
 	fi
 

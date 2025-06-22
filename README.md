@@ -42,12 +42,12 @@ sudo port install nasm grub2 qemu xorriso
 
 **Ubuntu/Debian:**
 ```bash
-sudo apt install gcc gcc-multilib nasm grub2-common grub-pc-bin qemu-system-x86 xorriso
+sudo apt install gcc nasm grub2-common grub-pc-bin qemu-system-x86 xorriso
 ```
 
 **Fedora/RHEL:**
 ```bash
-sudo dnf install gcc gcc-multilib nasm grub2-tools grub2-pc-modules qemu-system-x86 xorriso
+sudo dnf install gccnasm grub2-tools grub2-pc-modules qemu-system-x86 xorriso
 ```
 
 **Arch Linux:**

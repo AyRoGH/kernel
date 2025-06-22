@@ -44,12 +44,12 @@ sudo port install nasm grub2 qemu xorriso
 #### Ubuntu/Debian
 ```bash
 sudo apt update
-sudo apt install gcc gcc-multilib nasm binutils grub-common grub-pc-bin qemu-system-x86 xorriso
+sudo apt install gccnasm binutils grub-common grub-pc-bin qemu-system-x86 xorriso
 ```
 
 #### Fedora/RHEL
 ```bash
-sudo dnf install gcc gcc-multilib nasm binutils grub2-tools grub2-pc-modules qemu-system-x86 xorriso
+sudo dnf install gcc nasm binutils grub2-tools grub2-pc-modules qemu-system-x86 xorriso
 ```
 
 #### Arch Linux
@@ -103,8 +103,8 @@ When dependencies are missing, the system provides:
 **Error**: `32-bit compilation not supported`
 
 **Solutions**:
-- Ubuntu/Debian: `sudo apt install gcc-multilib libc6-dev-i386`
-- Fedora: `sudo dnf install gcc-multilib glibc-devel.i686`
+- Ubuntu/Debian: `sudo apt install libc6-dev-i386`
+- Fedora: `sudo dnf install glibc-devel.i686`
 - Arch: `sudo pacman -S lib32-gcc-libs lib32-glibc`
 
 ### Cross-Compilation Tools Missing (macOS)
